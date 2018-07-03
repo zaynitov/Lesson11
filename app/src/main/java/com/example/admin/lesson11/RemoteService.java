@@ -17,16 +17,19 @@ public class RemoteService extends Service {
         return new IMyAidlInterface.Stub() {
             @Override
             public String read() throws RemoteException {
-                SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.APP_PREFERENCES,
+                        Context.MODE_PRIVATE);
                 return sharedPreferences.getString(stringForSP, null);
             }
 
 
             @Override
             public void write(String string) throws RemoteException {
-                SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.APP_PREFERENCES,
+                        Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString(stringForSP,"HEY");
+                editor.commit();
             }
         }
 

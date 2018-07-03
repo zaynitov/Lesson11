@@ -16,6 +16,7 @@ public class Fragment1 extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         editText = (EditText) view.findViewById(R.id.editTextToSend);
+        editText.setText(iActivityCallbacks.getData());
     }
 
     @Override

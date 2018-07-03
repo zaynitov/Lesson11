@@ -20,6 +20,11 @@ public class MainActivity extends AppCompatActivity implements IActivityCallback
     public void sendData(String data) {
     }
 
+    @Override
+    public String getData() {
+        return "Hello";
+    }
+
     private ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
