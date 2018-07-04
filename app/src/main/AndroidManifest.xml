@@ -18,12 +18,12 @@
         </activity>
         <service
             android:name=".RemoteService"
-            android:process=":remote">
+            android:enabled="true"
 
-            <intent-filter>
+            android:process=".myprocess"
+            android:exported="true" >
 
-                <action android:name="com.example.admin.lesson11.IMyAidlInterface.aidl"></action>
-            </intent-filter>
+
 
         </service>
     </application>

@@ -14,12 +14,13 @@ public class RemoteService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+        System.out.println("We Are Binded");
         return new IMyAidlInterface.Stub() {
             @Override
             public String read() throws RemoteException {
                 SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.APP_PREFERENCES,
                         Context.MODE_PRIVATE);
-                return sharedPreferences.getString(stringForSP, null);
+                return sharedPreferences.getString(stringForSP, "DEFAULT");
             }
 
 
