@@ -13,10 +13,7 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity implements IActivityCallbacks {
     private ServiceConnection serviceConnection;
-    public static final String ACTION_AIDL = "com.example.admin.lesson11.IMyAidlInterface.aidl";
     private IMyAidlInterface iMyAidlInterface;
-    public SharedPreferences sharedPreferences;
-    public static final String APP_PREFERENCES = "mysettings";
 
     @Override
     public void sendData(String data) {
@@ -35,10 +32,8 @@ public class MainActivity extends AppCompatActivity implements IActivityCallback
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        return null;
+        return "";
     }
-
-
 
     @Override
     protected void onPause() {
@@ -48,12 +43,16 @@ public class MainActivity extends AppCompatActivity implements IActivityCallback
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-      serviceConnection = new ServiceConnection() {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        init();
+    }
+
+    private void init() {
+        serviceConnection = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-                System.out.println("HIIHIHIHI");
                 iMyAidlInterface = IMyAidlInterface.Stub.asInterface(iBinder);
-
             }
 
             @Override
@@ -61,27 +60,15 @@ public class MainActivity extends AppCompatActivity implements IActivityCallback
                 iMyAidlInterface = null;
             }
         };
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         Intent intent = new Intent(this, RemoteService.class);
-
-        System.out.println("HEHEHEHEHEH");
         bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
-        sharedPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment1 fragment1 = new Fragment1();
         Fragment2 fragment2 = new Fragment2();
         fragmentManager.beginTransaction().add(R.id.framelayout1, fragment1).
                 add(R.id.framelayout2, fragment2).commit();
 
-
     }
+
+
 }

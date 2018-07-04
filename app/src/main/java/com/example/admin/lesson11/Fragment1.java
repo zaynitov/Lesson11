@@ -8,13 +8,20 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 public class Fragment1 extends Fragment {
-    EditText editText;
-    IActivityCallbacks iActivityCallbacks;
+    private EditText editText;
+    private IActivityCallbacks iActivityCallbacks;
+    private Button mButtonl;
 
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        iActivityCallbacks = (MainActivity) context;
+    }
 
     @Nullable
     @Override
@@ -23,19 +30,17 @@ public class Fragment1 extends Fragment {
         return view;
     }
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         editText = (EditText) view.findViewById(R.id.editTextToSend);
-        editText.setText(iActivityCallbacks.getData());
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        iActivityCallbacks = (MainActivity) context;
-
+        mButtonl = view.findViewById(R.id.testButton);
+        mButtonl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editText.setText(iActivityCallbacks.getData());
+            }
+        });
     }
 
 
